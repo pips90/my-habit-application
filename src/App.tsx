@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
 
-// Sample PR 2
+// Sample PR 2 2
 
 function App() {
   return (
