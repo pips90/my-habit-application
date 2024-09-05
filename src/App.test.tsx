@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
-import App from "./App";
+import { store } from "./Redux/store";
+
+import AppRoutes from "./routes/Routes";
 describe("Should run tests for App component", () => {
   // TODO: Put this somewhere else (maybe part of a custom render since this needs before ALL tests)
   beforeAll(() => {
@@ -16,10 +17,10 @@ describe("Should run tests for App component", () => {
   test("renders learn react link", () => {
     render(
       <Provider store={store}>
-        <App />
+        <AppRoutes />
       </Provider>
     );
-    const heading = screen.getByText("Habit Tracker App");
+    const heading = screen.getByText("Welcome to the Habit Tracker");
 
     expect(heading).toBeVisible();
   });
