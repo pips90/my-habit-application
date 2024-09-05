@@ -5,6 +5,15 @@ describe('Should run tests for "create-habit-slice" Slice', () => {
     id: "",
     habits: [],
   };
+  // TODO: Put this somewhere else (maybe part of a custom render since this needs before ALL tests)
+  beforeAll(() => {
+    jest.spyOn(console, "error").mockImplementation((message) => {
+      if (message.includes("ReactDOMTestUtils.act is deprecated")) {
+        return;
+      }
+      console.error(message);
+    });
+  });
 
   it("Should test initial state", () => {
     expect(habitCreationReducer(undefined, { type: "unknown" })).toEqual({
