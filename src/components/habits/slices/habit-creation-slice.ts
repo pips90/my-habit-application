@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define your slice state
-interface User {
+export interface User {
   id: string;
   habits: Habit[];
 }
 
-interface Habit {
+export interface Habit {
   id: string;
   habitName: string;
 }
 
-const initialState: User = {
+export const initialState: User = {
   id: "",
   habits: [],
 };

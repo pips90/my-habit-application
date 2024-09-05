@@ -1,5 +1,15 @@
+import habitCreationReducer, { User } from "../slices/habit-creation-slice";
+
 describe('Should run tests for "create-habit-slice" Slice', () => {
-  it("Should test something", () => {
-    // Put tests here
+  const initialState: User = {
+    id: "",
+    habits: [],
+  };
+
+  it("Should test initial state", () => {
+    expect(habitCreationReducer(undefined, { type: "unknown" })).toEqual({
+      id: "",
+      habits: [],
+    });
   });
 });
