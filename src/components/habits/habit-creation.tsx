@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "../styles/create-habit-styleSheet.module.css";
 import { Habit } from "./slices/habit-creation-slice";
 
 // For testing
@@ -23,14 +24,16 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
   };
 
   return (
-    <div>
-      <h1>Habit Creation Screen</h1>
-      <input
-        placeholder="Your Habit"
-        onChange={handleHabitChange}
-        value={newHabit.habitName}
-      />
-      <button onClick={addNewlyCreatedHabit}>Add Habit</button>
+    <div className={styles.container}>
+      <div className={styles.form}>
+        <h1>Habit Creation Screen</h1>
+        <input
+          placeholder="Your Habit"
+          onChange={handleHabitChange}
+          value={newHabit.habitName}
+        />
+        <button onClick={addNewlyCreatedHabit}>Add Habit</button>
+      </div>
     </div>
   );
 };
