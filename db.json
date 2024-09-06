@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "habits": [
+        { "id": "1", "habitTitle": "Exercise" },
+        { "id": "2", "habitTitle": "Read" }
+      ]
+    }
+  ]
+}
