@@ -3,7 +3,7 @@ import habitCreationReducer from "../components/habits/slices/habit-creation-sli
 
 export const store = configureStore({
   reducer: {
-    counter: habitCreationReducer,
+    habitCreation: habitCreationReducer,
   },
 });
 
