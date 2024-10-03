@@ -1,16 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Define your slice state
-// export interface User {
-//   id: string;
-//   habits: Habit[];
-// }
-
 export interface Habit {
   id: string;
   habitName: string;
 }
-
 
 const storedHabits = localStorage.getItem('habits');
 
@@ -33,7 +26,6 @@ const habitCreationSlice = createSlice({
   },
 });
 
-// TODO: Uncomment this later.
 // Export actions
 export const {addHabit, setHabits} = habitCreationSlice.actions;
 

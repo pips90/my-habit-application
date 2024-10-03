@@ -34,14 +34,9 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
    useEffect(() => {
     console.log("All habits:", habits);
   }, [habits]); // Trigger useEffect whenever the habits array changes
-  
-  const handleHabitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewHabit({ ...newHabit, habitName: event.target.value });
-  };
 
   const onSubmit: SubmitHandler<Habit> = (newHabit) => {
-    // event.preventDefault();
-    // Generate a new unique ID each time a habit is created
+    // Generate a new unique ID each time a habit is created. TODO: use uuidv4 - something similar for this
     const newCreatedHabit = { ...newHabit, id: generateUniqueId() };
     dispatch(addHabit(newCreatedHabit)); // Dispatch action to Redux store
     createHabit(newCreatedHabit);
@@ -56,8 +51,6 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
         <input
           placeholder="Your Habit"
           {...register("habitName", { required: true })} // Registering the input field
-          // onChange={handleHabitChange}
-          // value={newHabit.habitName}
         />
         <button type="submit">Add Habit</button>
       </form>
