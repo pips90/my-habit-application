@@ -25,7 +25,7 @@ export const createHabit = (habit: Habit) => {
 const HabitCreation = ({ createHabit }: HabitCreationProps) => {
   const dispatch = useAppDispatch(); // Use Redux dispatch
     // Access the habits from Redux store
-    const habits = useAppSelector((state: RootState) => state.habitCreation.habits);
+    const habits = useAppSelector((state: RootState) => state.habitCreation);
     const { register, handleSubmit, reset } = useForm<Habit>();
 
   const [newHabit, setNewHabit] = useState<Habit>({ id: generateUniqueId(), habitName: "" });

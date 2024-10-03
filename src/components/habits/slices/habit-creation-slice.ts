@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define your slice state
-export interface User {
-  id: string;
-  habits: Habit[];
-}
+// export interface User {
+//   id: string;
+//   habits: Habit[];
+// }
 
 export interface Habit {
   id: string;
   habitName: string;
 }
 
-export const initialState: User = {
-  id: "",
-  habits: [],
-};
+
+const storedHabits = localStorage.getItem('habits');
+
+export const initialState: Habit[] = storedHabits ? JSON.parse(storedHabits) : [];
 
 // Create a slice
 const habitCreationSlice = createSlice({
@@ -23,12 +23,12 @@ const habitCreationSlice = createSlice({
   reducers: {
     // put your reducers here
     addHabit: (state, action: PayloadAction<Habit>) => {
-      state.habits.push(action.payload); // Push the new habit to the user's habits array
-      localStorage.setItem('habits', JSON.stringify(state.habits))
+      state.push(action.payload); // Push the new habit to the user's habits array
+      localStorage.setItem('habits', JSON.stringify(state))
     },
      // Create a new reducer to fetch habits from localStorage
      setHabits: (state, action: PayloadAction<Habit[]>) => {
-      state.habits = action.payload;
+      return action.payload;
     }
   },
 });
