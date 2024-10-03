@@ -1,11 +1,12 @@
-import { useDispatch } from "react-redux/es/hooks/useDispatch";
+
 import "./App.css";
 import HomePage from "./components/HomePage";
 import { useEffect } from "react";
 import { setHabits } from "./components/habits/slices/habit-creation-slice";
+import { useAppDispatch } from "./Redux/hooks";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // Fetch habits from localStorage on app startup

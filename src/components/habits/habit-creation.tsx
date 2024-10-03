@@ -3,8 +3,9 @@ import styles from "../styles/create-habit-styleSheet.module.css";
 import { addHabit, Habit } from "./slices/habit-creation-slice";
 
 import { RootState } from "../../Redux/store";
-import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
+import { SubmitHandler, useForm } from "react-hook-form";
+
 
 // For testing
 // Define the props interface
@@ -22,9 +23,11 @@ export const createHabit = (habit: Habit) => {
 };
 
 const HabitCreation = ({ createHabit }: HabitCreationProps) => {
-  const dispatch = useDispatch(); // Use Redux dispatch
+  const dispatch = useAppDispatch(); // Use Redux dispatch
     // Access the habits from Redux store
-    const habits = useSelector((state: RootState) => state.habitCreation.habits);
+    const habits = useAppSelector((state: RootState) => state.habitCreation.habits);
+    const { register, handleSubmit, reset } = useForm<Habit>();
+
   const [newHabit, setNewHabit] = useState<Habit>({ id: generateUniqueId(), habitName: "" });
 
    // useEffect to log all habits whenever they change
@@ -36,22 +39,25 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
     setNewHabit({ ...newHabit, habitName: event.target.value });
   };
 
-  const addNewlyCreatedHabit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<Habit> = (newHabit) => {
+    // event.preventDefault();
     // Generate a new unique ID each time a habit is created
     const newCreatedHabit = { ...newHabit, id: generateUniqueId() };
     dispatch(addHabit(newCreatedHabit)); // Dispatch action to Redux store
     createHabit(newCreatedHabit);
+    reset(); // Reset form after submission
+
   };
 
   return (
     <div className={styles.container}>
-      <form onSubmit={addNewlyCreatedHabit} className={styles.form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h1>Habit Creation Screen</h1>
         <input
           placeholder="Your Habit"
-          onChange={handleHabitChange}
-          value={newHabit.habitName}
+          {...register("habitName", { required: true })} // Registering the input field
+          // onChange={handleHabitChange}
+          // value={newHabit.habitName}
         />
         <button type="submit">Add Habit</button>
       </form>
