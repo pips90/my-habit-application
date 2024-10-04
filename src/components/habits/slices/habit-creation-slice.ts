@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface Habit {
   id: string;
   habitName: string;
+  habitCompleted: boolean;
 }
 
 const storedHabits = localStorage.getItem('habits');
@@ -22,12 +23,19 @@ const habitCreationSlice = createSlice({
      // Create a new reducer to fetch habits from localStorage
      setHabits: (state, action: PayloadAction<Habit[]>) => {
       return action.payload;
+    },
+    completedHabit: (state, action: PayloadAction<string>) => {
+      const habit = state.find(h => h.id == action.payload);
+      if (habit) {
+        habit.habitCompleted = !habit.habitCompleted;
+        localStorage.setItem('habits', JSON.stringify(state));
+      }
     }
   },
 });
 
 // Export actions
-export const {addHabit, setHabits} = habitCreationSlice.actions;
+export const {addHabit, setHabits, completedHabit} = habitCreationSlice.actions;
 
 // Export reducer
 export default habitCreationSlice.reducer;

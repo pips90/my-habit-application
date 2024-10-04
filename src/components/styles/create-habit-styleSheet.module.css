@@ -18,13 +18,15 @@
   border-radius: 8px;
 }
 
-input,
-button {
-  width: 100%; /* Make both input and button the same width */
+/* Target only input and button inside the HabitCreation form */
+.form input[type="text"],
+.form button {
+  width: 100%; /* Full width only for text inputs and buttons */
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 4px;
   font-size: 16px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
 }
 
 input {
