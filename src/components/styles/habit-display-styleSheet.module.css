@@ -1,0 +1,29 @@
+.habitContainer {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children in a column */
+  align-items: flex-start; /* Align all children to the start (left) */
+  width: 100%;
+}
+
+.habitContainer h2 {
+  text-align: center; /* Center the heading */
+  width: 100%; /* Ensure the heading takes full width */
+}
+
+.habitContainer ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  width: 100%;
+}
+
+.habitContainer li {
+  display: flex; /* Row for checkbox and habit name */
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.habitContainer input[type="checkbox"] {
+  width: auto; /* Ensure checkboxes don't stretch */
+  margin-right: 10px; /* Add some spacing between checkbox and text */
+}

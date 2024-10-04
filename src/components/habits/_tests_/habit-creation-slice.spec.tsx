@@ -20,7 +20,10 @@ describe('Should run tests for "create-habit-slice" Slice', () => {
   });
 
   it("Should test if a habit is being successfully saved", () => {
-    const newHabit: Habit = {id: "1", habitName: "Drink Water"}
+    const newHabit: Habit = {
+      id: "1", habitName: "Drink Water",
+      habitCompleted: false
+    }
     const newCreatedHabit = habitCreationReducer(initialEmptyState, addHabit(newHabit))
 
     expect(newCreatedHabit).toHaveLength(1)
