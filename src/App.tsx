@@ -12,7 +12,7 @@ function App() {
     // Fetch habits from localStorage on app startup
     const storedHabits = localStorage.getItem('habits');
     if (storedHabits) {
-      dispatch(setHabits(JSON.parse(storedHabits))); // Set habits in Redux store
+      dispatch(setHabits(JSON.parse(storedHabits))); // Set habits in habit-creation-slice
     }
   }, [dispatch]);
   return (
