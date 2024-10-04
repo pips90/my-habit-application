@@ -15,10 +15,11 @@ const HabitList: React.FC<HabitListProps> = ({ habits, handleCompletionCheck }) 
           <li key={habit.id}>
             <input
               type="checkbox"
+              id={habit.id} // Unique ID for the checkbox
               checked={habit.habitCompleted}
               onChange={() => handleCompletionCheck(habit.id)}
             />
-            {habit.habitName}
+            <label htmlFor={habit.id}>{habit.habitName}</label> 
           </li>
         ))}
       </ul>
