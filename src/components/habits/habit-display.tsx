@@ -39,16 +39,17 @@ const HabitList: React.FC<HabitListProps> = ({
               onChange={() => handleCompletionCheck(habit.id)}
             />
             {editMode === habit.id ? (
-              <>
+              <form style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="text"
                   value={editedHabitName}
                   onChange={(e) => setEditedHabitName(e.target.value)}
+                  style={{ marginRight: '8px' }}
                 />
                 <button onClick={() => handleSaveClick(habit.id)}>
                   Save Habit
                 </button>
-              </>
+              </form>
             ) : (
               <label onClick={() => handleEditClick(habit)} htmlFor={habit.id}>
                 {habit.habitName}

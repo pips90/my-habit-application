@@ -1,5 +1,3 @@
-// TODO: remove this comment
-// init commit for updating
 import { useEffect, useState } from "react";
 import styles from "../styles/create-habit-styleSheet.module.css";
 import {
