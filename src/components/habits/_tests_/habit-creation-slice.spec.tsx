@@ -2,6 +2,7 @@ import habitCreationReducer, {
   addHabit,
   completedHabit,
   Habit,
+  updateHabitName,
 } from "../slices/habit-creation-slice";
 
 describe('Should run tests for "create-habit-slice" Slice', () => {
@@ -35,18 +36,16 @@ describe('Should run tests for "create-habit-slice" Slice', () => {
   });
 
   it("Should test if a habit is being successfully saved", () => {
-    const newHabit: Habit = {
-      id: "1",
-      habitName: "Drink Water",
-      habitCompleted: false,
-    };
+    const initialState: Habit[] = [
+      { id: "1", habitName: "Drink Water", habitCompleted: false,}
+    ];
     const newCreatedHabit = habitCreationReducer(
       initialEmptyState,
-      addHabit(newHabit)
+      addHabit(initialState[0])
     );
 
     expect(newCreatedHabit).toHaveLength(1);
-    expect(newCreatedHabit[0]).toEqual(newHabit);
+    expect(newCreatedHabit[0]).toEqual(initialState[0]);
   });
 
   it("Should test if habitCompleted is updated when checked or unchecked", () => {
@@ -88,4 +87,29 @@ describe('Should run tests for "create-habit-slice" Slice', () => {
       JSON.stringify(updatedState)
     );
   });
+
+  it('Should test if newly edited habit is being save to local storage', () => {
+    const initialState: Habit[] = [
+      { id: "1", habitName: "Drink Water", habitCompleted: false },
+      { id: "2", habitName: "Exercise", habitCompleted: false },
+      { id: "3", habitName: "Eat Lunch", habitCompleted: false },
+    ];
+
+     // Action to complete the habit with id '2'
+     let action = updateHabitName({id: '2', habitName: 'Go on a walk'});
+
+     // Call the reducer with the initial state and action
+     let updatedState = habitCreationReducer(initialState, action);
+
+     expect(updatedState).toEqual([
+      { id: "1", habitName: "Drink Water", habitCompleted: false },
+      { id: "2", habitName: "Go on a walk", habitCompleted: false },
+      { id: "3", habitName: "Eat Lunch", habitCompleted: false },
+    ]);
+
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      "habits",
+      JSON.stringify(updatedState)
+    );
+  })
 });

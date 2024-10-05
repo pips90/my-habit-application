@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Habit {
-  id: string;
+  id: string
   habitName: string;
   habitCompleted: boolean;
 }
@@ -30,12 +30,19 @@ const habitCreationSlice = createSlice({
         habit.habitCompleted = !habit.habitCompleted;
         localStorage.setItem('habits', JSON.stringify(state));
       }
-    }
+    },
+    updateHabitName: (state, action: PayloadAction<{ id: string; habitName: string }>) => {
+      const habit = state.find((h) => h.id === action.payload.id);
+      if (habit) {
+        habit.habitName = action.payload.habitName;
+        localStorage.setItem('habits', JSON.stringify(state)); // Update localStorage if needed
+      }
+    },
   },
 });
 
 // Export actions
-export const {addHabit, setHabits, completedHabit} = habitCreationSlice.actions;
+export const {addHabit, setHabits, completedHabit, updateHabitName} = habitCreationSlice.actions;
 
 // Export reducer
 export default habitCreationSlice.reducer;
