@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-
 import userEvent from "@testing-library/user-event";
 import HabitCreation from "../habit-creation";
 import { Provider } from "react-redux";
