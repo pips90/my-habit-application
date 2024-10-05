@@ -55,10 +55,10 @@ const HabitList: React.FC<HabitListProps> = ({ habits }) => {
                   onChange={(e) => setEditedHabitName(e.target.value)}
                   style={{ marginRight: "8px" }}
                 />
-                <button onClick={() => handleSaveClick(habit.id)}>
+                <button onClick={() => handleSaveClick(habit.id)} style={{ marginRight: "8px", background: 'blue' }}>
                   Save Habit
                 </button>
-                <button onClick={() => handleDeleteClick(habit.id)}>
+                <button onClick={() => handleDeleteClick(habit.id)} style={{background: 'red'}}>
                   Delete Habit
                 </button>
               </form>
