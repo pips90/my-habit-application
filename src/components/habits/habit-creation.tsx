@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/create-habit-styleSheet.module.css";
-import { addHabit, completedHabit, Habit } from "./slices/habit-creation-slice";
+import {
+  addHabit,
+  completedHabit,
+  Habit,
+  updateHabitName,
+} from "./slices/habit-creation-slice";
 
 import { RootState } from "../../Redux/store";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
@@ -50,6 +55,11 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
     dispatch(completedHabit(habitId)); // Dispatch the completion action to Redux store
   };
 
+  // Handler to edit habit name
+  const handleEditHabit = (id: string, newHabitName: string) => {
+    dispatch(updateHabitName({ id, habitName: newHabitName }));
+  };
+
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -63,6 +73,7 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
         <HabitDisplay
           habits={habits}
           handleCompletionCheck={handleCompletionCheck}
+          handleEditHabit={handleEditHabit} // Pass down the handleEditHabit function
         />
       </form>
     </div>

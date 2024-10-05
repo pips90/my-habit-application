@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-
 import userEvent from "@testing-library/user-event";
 import HabitCreation from "../habit-creation";
 import { Provider } from "react-redux";
@@ -65,6 +64,6 @@ describe('Should run tests for "habit-creation" component', () => {
         habitName: "Drink Water",
         id: expect.stringMatching(/\S+/), // Ensures `id` is a non-empty string
       })
-  );
+    );
   });
 });
