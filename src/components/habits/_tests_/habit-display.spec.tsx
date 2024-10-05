@@ -24,7 +24,11 @@ describe("Should run tests for habit-display component", () => {
     ];
     render(
       <Provider store={store}>
-        <HabitList habits={habits} handleCompletionCheck={() => {}} handleEditHabit={() => {}} />
+        <HabitList
+          habits={habits}
+          handleCompletionCheck={() => {}}
+          handleEditHabit={() => {}}
+        />
       </Provider>
     );
 
@@ -38,7 +42,7 @@ describe("Should run tests for habit-display component", () => {
   it('Should handle updating habitCompleted when habit is "checked"', async () => {
     const user = userEvent.setup();
     const handleCompletionCheck = jest.fn(); // Mock function
-    
+
     const habits: Habit[] = [
       { id: "1", habitName: "Drink Water", habitCompleted: false },
       { id: "2", habitName: "Exercise", habitCompleted: false },
@@ -46,22 +50,26 @@ describe("Should run tests for habit-display component", () => {
     ];
     render(
       <Provider store={store}>
-        <HabitList habits={habits} handleCompletionCheck={handleCompletionCheck} handleEditHabit={() => {}}/>
+        <HabitList
+          habits={habits}
+          handleCompletionCheck={handleCompletionCheck}
+          handleEditHabit={() => {}}
+        />
       </Provider>
     );
 
-    const habitOne = await screen.getByLabelText('Drink Water')
-    const habitTwo = await screen.getByLabelText('Exercise');
-    const habitThree = await screen.getByLabelText('Eat Lunch');
+    const habitOne = await screen.getByLabelText("Drink Water");
+    const habitTwo = await screen.getByLabelText("Exercise");
+    const habitThree = await screen.getByLabelText("Eat Lunch");
 
     expect(habitOne && habitTwo && habitThree).not.toBeChecked();
 
-    await user.click(habitTwo)
+    await user.click(habitTwo);
 
-    expect(handleCompletionCheck).toBeCalledWith('2')
+    expect(handleCompletionCheck).toBeCalledWith("2");
   });
 
-  it('Should update habitList when habit is clicked and edited', async () => {
+  it("Should update habitList when habit is clicked and edited", async () => {
     const user = userEvent.setup();
     const handleEditClick = jest.fn();
 
@@ -73,21 +81,25 @@ describe("Should run tests for habit-display component", () => {
 
     render(
       <Provider store={store}>
-        <HabitList habits={habits} handleCompletionCheck={() => {}} handleEditHabit={handleEditClick}/>
+        <HabitList
+          habits={habits}
+          handleCompletionCheck={() => {}}
+          handleEditHabit={handleEditClick}
+        />
       </Provider>
     );
 
-    const habitTwo = screen.getByText('Exercise')
+    const habitTwo = screen.getByText("Exercise");
 
-    await user.click(habitTwo)
+    await user.click(habitTwo);
 
-    const habitToEdit = screen.getByDisplayValue('Exercise')
-    const editButton = screen.getByText('Save Habit')
-    
-    await user.clear(habitToEdit)
-    await user.type(habitToEdit, 'Go on a walk')
-    await user.click(editButton)
+    const habitToEdit = screen.getByDisplayValue("Exercise");
+    const editButton = screen.getByText("Save Habit");
 
-    expect(handleEditClick).toHaveBeenCalledWith('2', 'Go on a walk')
-  })
+    await user.clear(habitToEdit);
+    await user.type(habitToEdit, "Go on a walk");
+    await user.click(editButton);
+
+    expect(handleEditClick).toHaveBeenCalledWith("2", "Go on a walk");
+  });
 });

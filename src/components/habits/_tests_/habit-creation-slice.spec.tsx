@@ -37,7 +37,7 @@ describe('Should run tests for "create-habit-slice" Slice', () => {
 
   it("Should test if a habit is being successfully saved", () => {
     const initialState: Habit[] = [
-      { id: "1", habitName: "Drink Water", habitCompleted: false,}
+      { id: "1", habitName: "Drink Water", habitCompleted: false },
     ];
     const newCreatedHabit = habitCreationReducer(
       initialEmptyState,
@@ -88,20 +88,20 @@ describe('Should run tests for "create-habit-slice" Slice', () => {
     );
   });
 
-  it('Should test if newly edited habit is being save to local storage', () => {
+  it("Should test if newly edited habit is being save to local storage", () => {
     const initialState: Habit[] = [
       { id: "1", habitName: "Drink Water", habitCompleted: false },
       { id: "2", habitName: "Exercise", habitCompleted: false },
       { id: "3", habitName: "Eat Lunch", habitCompleted: false },
     ];
 
-     // Action to complete the habit with id '2'
-     let action = updateHabitName({id: '2', habitName: 'Go on a walk'});
+    // Action to complete the habit with id '2'
+    let action = updateHabitName({ id: "2", habitName: "Go on a walk" });
 
-     // Call the reducer with the initial state and action
-     let updatedState = habitCreationReducer(initialState, action);
+    // Call the reducer with the initial state and action
+    let updatedState = habitCreationReducer(initialState, action);
 
-     expect(updatedState).toEqual([
+    expect(updatedState).toEqual([
       { id: "1", habitName: "Drink Water", habitCompleted: false },
       { id: "2", habitName: "Go on a walk", habitCompleted: false },
       { id: "3", habitName: "Eat Lunch", habitCompleted: false },
@@ -111,5 +111,5 @@ describe('Should run tests for "create-habit-slice" Slice', () => {
       "habits",
       JSON.stringify(updatedState)
     );
-  })
+  });
 });

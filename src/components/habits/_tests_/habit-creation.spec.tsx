@@ -64,6 +64,6 @@ describe('Should run tests for "habit-creation" component', () => {
         habitName: "Drink Water",
         id: expect.stringMatching(/\S+/), // Ensures `id` is a non-empty string
       })
-  );
+    );
   });
 });

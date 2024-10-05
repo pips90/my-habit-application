@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Habit } from './slices/habit-creation-slice';
-import styles from '../styles/habit-display-styleSheet.module.css';
+import React, { useState } from "react";
+import { Habit } from "./slices/habit-creation-slice";
+import styles from "../styles/habit-display-styleSheet.module.css";
 
 interface HabitListProps {
   habits: Habit[];
@@ -8,9 +8,13 @@ interface HabitListProps {
   handleEditHabit: (id: string, newHabitName: string) => void; // Add this prop
 }
 
-const HabitList: React.FC<HabitListProps> = ({ habits, handleCompletionCheck, handleEditHabit }) => {
+const HabitList: React.FC<HabitListProps> = ({
+  habits,
+  handleCompletionCheck,
+  handleEditHabit,
+}) => {
   const [editMode, setEditMode] = useState<string | null>(null); // Track which habit is being edited
-  const [editedHabitName, setEditedHabitName] = useState<string>(''); // Track the edited habit name
+  const [editedHabitName, setEditedHabitName] = useState<string>(""); // Track the edited habit name
 
   const handleEditClick = (habit: Habit) => {
     setEditMode(habit.id); // Enable edit mode for this habit
@@ -41,7 +45,9 @@ const HabitList: React.FC<HabitListProps> = ({ habits, handleCompletionCheck, ha
                   value={editedHabitName}
                   onChange={(e) => setEditedHabitName(e.target.value)}
                 />
-                <button onClick={() => handleSaveClick(habit.id)}>Save Habit</button>
+                <button onClick={() => handleSaveClick(habit.id)}>
+                  Save Habit
+                </button>
               </>
             ) : (
               <label onClick={() => handleEditClick(habit)} htmlFor={habit.id}>
