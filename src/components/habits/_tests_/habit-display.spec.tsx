@@ -1,9 +1,24 @@
 import { Provider } from "react-redux";
 import { store } from "../../../Redux/store";
 import HabitList from "../habit-display";
-import { getByRole, render, screen } from "@testing-library/react";
-import { completedHabit, Habit } from "../slices/habit-creation-slice";
+import { render, screen } from "@testing-library/react";
+import {
+  completedHabit,
+  deleteHabit,
+  Habit,
+  updateHabitName,
+} from "../slices/habit-creation-slice";
 import userEvent from "@testing-library/user-event";
+import { useAppDispatch } from "../../../Redux/hooks";
+import { AnyAction, Dispatch } from "redux";
+
+// Create a type for your mock dispatch
+type MockDispatch = jest.Mock<Dispatch<AnyAction>>;
+
+// Mock useAppDispatch
+jest.mock("../../../Redux/hooks", () => ({
+  useAppDispatch: jest.fn(),
+}));
 
 describe("Should run tests for habit-display component", () => {
   // TODO: Put this somewhere else (maybe part of a custom render since this needs before ALL tests)
@@ -24,11 +39,7 @@ describe("Should run tests for habit-display component", () => {
     ];
     render(
       <Provider store={store}>
-        <HabitList
-          habits={habits}
-          handleCompletionCheck={() => {}}
-          handleEditHabit={() => {}}
-        />
+        <HabitList habits={habits} />
       </Provider>
     );
 
@@ -41,7 +52,8 @@ describe("Should run tests for habit-display component", () => {
 
   it('Should handle updating habitCompleted when habit is "checked"', async () => {
     const user = userEvent.setup();
-    const handleCompletionCheck = jest.fn(); // Mock function
+    const mockDispatch: MockDispatch = jest.fn(); // Create a mock dispatch function
+    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mock function
 
     const habits: Habit[] = [
       { id: "1", habitName: "Drink Water", habitCompleted: false },
@@ -50,11 +62,7 @@ describe("Should run tests for habit-display component", () => {
     ];
     render(
       <Provider store={store}>
-        <HabitList
-          habits={habits}
-          handleCompletionCheck={handleCompletionCheck}
-          handleEditHabit={() => {}}
-        />
+        <HabitList habits={habits} />
       </Provider>
     );
 
@@ -66,12 +74,13 @@ describe("Should run tests for habit-display component", () => {
 
     await user.click(habitTwo);
 
-    expect(handleCompletionCheck).toBeCalledWith("2");
+    expect(mockDispatch).toBeCalledWith(completedHabit("2"));
   });
 
   it("Should update habitList when habit is clicked and edited", async () => {
     const user = userEvent.setup();
-    const handleEditClick = jest.fn();
+    const mockDispatch: MockDispatch = jest.fn(); // Create a mock dispatch function
+    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mock function
 
     const habits: Habit[] = [
       { id: "1", habitName: "Drink Water", habitCompleted: false },
@@ -81,11 +90,7 @@ describe("Should run tests for habit-display component", () => {
 
     render(
       <Provider store={store}>
-        <HabitList
-          habits={habits}
-          handleCompletionCheck={() => {}}
-          handleEditHabit={handleEditClick}
-        />
+        <HabitList habits={habits} />
       </Provider>
     );
 
@@ -100,6 +105,37 @@ describe("Should run tests for habit-display component", () => {
     await user.type(habitToEdit, "Go on a walk");
     await user.click(editButton);
 
-    expect(handleEditClick).toHaveBeenCalledWith("2", "Go on a walk");
+    expect(mockDispatch).toHaveBeenCalledWith(
+      updateHabitName({ id: "2", habitName: "Go on a walk" })
+    );
+  });
+
+  it('Should handle deleting a habit when habit is clicked and "Delete Habit" is clicked', async () => {
+    const user = userEvent.setup();
+    const mockDispatch: MockDispatch = jest.fn(); // Create a mock dispatch function
+    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mock function
+
+    const habits: Habit[] = [
+      { id: "1", habitName: "Drink Water", habitCompleted: false },
+      { id: "2", habitName: "Exercise", habitCompleted: false },
+      { id: "3", habitName: "Eat Lunch", habitCompleted: false },
+    ];
+    render(
+      <Provider store={store}>
+        <HabitList habits={habits} />
+      </Provider>
+    );
+
+    const habitTwo = screen.getByText("Exercise");
+
+    await user.click(habitTwo);
+
+    const habitToEdit = screen.getByDisplayValue("Exercise");
+    const deleteButton = screen.getByText("Delete Habit");
+
+    await user.click(deleteButton);
+
+    expect(habitToEdit).toHaveValue("Exercise");
+    expect(mockDispatch).toHaveBeenCalledWith(deleteHabit("2"));
   });
 });

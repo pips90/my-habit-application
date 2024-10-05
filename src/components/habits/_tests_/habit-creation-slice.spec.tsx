@@ -1,6 +1,7 @@
 import habitCreationReducer, {
   addHabit,
   completedHabit,
+  deleteHabit,
   Habit,
   updateHabitName,
 } from "../slices/habit-creation-slice";
@@ -112,4 +113,28 @@ describe('Should run tests for "create-habit-slice" Slice', () => {
       JSON.stringify(updatedState)
     );
   });
+
+  it('Should test if selected habit is being deleted from local storage', () => {
+    const initialState: Habit[] = [
+      { id: "1", habitName: "Drink Water", habitCompleted: false },
+      { id: "2", habitName: "Exercise", habitCompleted: false },
+      { id: "3", habitName: "Eat Lunch", habitCompleted: false },
+    ];
+
+    // Action to complete the habit with id '2'
+    let action = deleteHabit("2");
+
+    // Call the reducer with the initial state and action
+    let updatedState = habitCreationReducer(initialState, action);
+
+    expect(updatedState).toEqual([
+      { id: "1", habitName: "Drink Water", habitCompleted: false },
+      { id: "3", habitName: "Eat Lunch", habitCompleted: false },
+    ]);
+
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      "habits",
+      JSON.stringify(updatedState)
+    );
+  })
 });

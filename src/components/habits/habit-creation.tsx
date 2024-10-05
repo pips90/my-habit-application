@@ -50,16 +50,6 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
     reset(); // Reset form after submission
   };
 
-  // Handler to toggle habit completion
-  const handleCompletionCheck = (habitId: string) => {
-    dispatch(completedHabit(habitId)); // Dispatch the completion action to Redux store
-  };
-
-  // Handler to edit habit name
-  const handleEditHabit = (id: string, newHabitName: string) => {
-    dispatch(updateHabitName({ id, habitName: newHabitName }));
-  };
-
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -70,11 +60,7 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
           {...register("habitName", { required: true })} // Registering the input field
         />
         <button type="submit">Add Habit</button>
-        <HabitDisplay
-          habits={habits}
-          handleCompletionCheck={handleCompletionCheck}
-          handleEditHabit={handleEditHabit} // Pass down the handleEditHabit function
-        />
+        <HabitDisplay habits={habits} />
       </form>
     </div>
   );

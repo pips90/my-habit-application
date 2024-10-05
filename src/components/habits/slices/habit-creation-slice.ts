@@ -43,12 +43,22 @@ const habitCreationSlice = createSlice({
         localStorage.setItem("habits", JSON.stringify(state)); // Update localStorage if needed
       }
     },
+    deleteHabit: (state, action: PayloadAction<string>) => {
+      const updatedState = state.filter((habit) => habit.id !== action.payload);
+      localStorage.setItem("habits", JSON.stringify(updatedState)); // Update localStorage here
+      return updatedState; // Return the updated state
+    },
   },
 });
 
 // Export actions
-export const { addHabit, setHabits, completedHabit, updateHabitName } =
-  habitCreationSlice.actions;
+export const {
+  addHabit,
+  setHabits,
+  completedHabit,
+  updateHabitName,
+  deleteHabit,
+} = habitCreationSlice.actions;
 
 // Export reducer
 export default habitCreationSlice.reducer;
