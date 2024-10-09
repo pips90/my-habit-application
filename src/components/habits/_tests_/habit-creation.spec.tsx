@@ -3,6 +3,8 @@ import userEvent from "@testing-library/user-event";
 import HabitCreation from "../habit-creation";
 import { Provider } from "react-redux";
 import { store } from "../../../Redux/store";
+import { HashRouter as Router } from "react-router-dom";
+
 
 describe('Should run tests for "habit-creation" component', () => {
   // TODO: Put this somewhere else (maybe part of a custom render since this needs before ALL tests)
@@ -19,7 +21,9 @@ describe('Should run tests for "habit-creation" component', () => {
     const mockCreateHabit = jest.fn();
     render(
       <Provider store={store}>
+        <Router>
         <HabitCreation createHabit={mockCreateHabit} />
+        </Router>
       </Provider>
     );
     const habitHeading = screen.getByText("Habit Creation Screen");
@@ -34,7 +38,9 @@ describe('Should run tests for "habit-creation" component', () => {
 
     render(
       <Provider store={store}>
+        <Router>
         <HabitCreation createHabit={mockCreateHabit} />
+        </Router>
       </Provider>
     );
     const habitInput = screen.getByPlaceholderText("Your Habit");
@@ -47,10 +53,13 @@ describe('Should run tests for "habit-creation" component', () => {
   it('Should test if "CreateHabit()" is being called with user input', async () => {
     // Mock the createHabit function
     const mockCreateHabit = jest.fn();
-
+  
+    // Wrapped Router since it using <Link /> required routing for basic render
     render(
       <Provider store={store}>
+        <Router>
         <HabitCreation createHabit={mockCreateHabit} />
+        </Router>
       </Provider>
     );
     const habitInput = screen.getByPlaceholderText("Your Habit");
