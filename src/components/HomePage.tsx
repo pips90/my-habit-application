@@ -21,7 +21,6 @@ const HomePage: React.FC = () => {
           border: '1px solid #007bff',
           padding: '10px 20px',
           borderRadius: '5px',
-          transition: 'background-color 0.3s ease, color 0.3s ease',
         }}>Go to Your Habits</Link>
     </div>
   );
