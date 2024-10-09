@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+//
 import styles from "../styles/create-habit-styleSheet.module.css";
 import {
   addHabit,
@@ -31,11 +32,6 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
   // Access the habits from Redux store
   const habits = useAppSelector((state: RootState) => state.habitCreation);
   const { register, handleSubmit, reset } = useForm<Habit>();
-
-  // useEffect to log all habits whenever they change
-  useEffect(() => {
-    console.log("All habits:", habits);
-  }, [habits]); // Trigger useEffect whenever the habits array changes
 
   const onSubmit: SubmitHandler<Habit> = (newHabit) => {
     // Generate a new unique ID each time a habit is created. TODO: use uuidv4 - something similar for this
