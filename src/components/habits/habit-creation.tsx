@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/create-habit-styleSheet.module.css";
 import {
   addHabit,
-  completedHabit,
   Habit,
-  updateHabitName,
 } from "./slices/habit-creation-slice";
 import { Link } from "react-router-dom";
 

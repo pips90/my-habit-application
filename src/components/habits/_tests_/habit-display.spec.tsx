@@ -5,17 +5,15 @@ import { render, screen } from "@testing-library/react";
 import {
   completedHabit,
   deleteHabit,
+
   Habit,
+
   updateHabitName,
 } from "../slices/habit-creation-slice";
 import userEvent from "@testing-library/user-event";
 import { useAppDispatch } from "../../../Redux/hooks";
-import { AnyAction, Dispatch } from "redux";
 
-// Create a type for your mock dispatch
-type MockDispatch = jest.Mock<Dispatch<AnyAction>>;
-
-// Mock useAppDispatch
+// Mock useAppDispatch (jest.fn() creates a mock func which allows control over various ways it can behave.
 jest.mock("../../../Redux/hooks", () => ({
   useAppDispatch: jest.fn(),
 }));
@@ -52,8 +50,8 @@ describe("Should run tests for habit-display component", () => {
 
   it('Should handle updating habitCompleted when habit is "checked"', async () => {
     const user = userEvent.setup();
-    const mockDispatch: MockDispatch = jest.fn(); // Create a mock dispatch function
-    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mock function
+    const mockDispatch = jest.fn(); // mock dispatch function
+    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mockDispatch
 
     const habits: Habit[] = [
       { id: "1", habitName: "Drink Water", habitCompleted: false },
@@ -79,8 +77,8 @@ describe("Should run tests for habit-display component", () => {
 
   it("Should update habitList when habit is clicked and edited", async () => {
     const user = userEvent.setup();
-    const mockDispatch: MockDispatch = jest.fn(); // Create a mock dispatch function
-    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mock function
+    const mockDispatch = jest.fn();  // mock dispatch function
+    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mockDispatch
 
     const habits: Habit[] = [
       { id: "1", habitName: "Drink Water", habitCompleted: false },
@@ -112,8 +110,8 @@ describe("Should run tests for habit-display component", () => {
 
   it('Should handle deleting a habit when habit is clicked and "Delete Habit" is clicked', async () => {
     const user = userEvent.setup();
-    const mockDispatch: MockDispatch = jest.fn(); // Create a mock dispatch function
-    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mock function
+    const mockDispatch = jest.fn(); // mock dispatch function
+    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch); // Mock useAppDispatch to return the mockDispatch
 
     const habits: Habit[] = [
       { id: "1", habitName: "Drink Water", habitCompleted: false },
