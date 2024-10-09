@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import App from "../App";
 import HabitCreation, {
   createHabit,
@@ -8,12 +8,13 @@ const AppRoutes: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<App />} /> {/* Home page route */}
+        {/*  Homepage route (base url) (technically App.tsx which displays <HomePage /> component) */}
+        <Route path="/" element={<App />} />
+        {/* Habit Creation route */}
         <Route
           path="/habit-creation"
           element={<HabitCreation createHabit={createHabit} />}
         />{" "}
-        {/* Habit creation route */}
       </Routes>
     </Router>
   );

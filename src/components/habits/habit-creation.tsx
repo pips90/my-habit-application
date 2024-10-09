@@ -6,6 +6,7 @@ import {
   Habit,
   updateHabitName,
 } from "./slices/habit-creation-slice";
+import { Link } from "react-router-dom";
 
 import { RootState } from "../../Redux/store";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
@@ -18,7 +19,7 @@ interface HabitCreationProps {
   createHabit: (habit: Habit) => void;
 }
 
-// Simple unique ID generator
+// Simple unique ID generator- probably could have used uuidv4() instead
 const generateUniqueId = () => {
   return Date.now().toString() + Math.floor(Math.random() * 1000).toString();
 };
@@ -51,17 +52,30 @@ const HabitCreation = ({ createHabit }: HabitCreationProps) => {
   };
 
   return (
+    <div>
+       {/* Navbar quick style */}
+       <div className={styles.navbar}>
+        <Link to="/">
+          <button type="button" className={styles.backButton}>
+            Go Back to Home
+          </button>
+        </Link>
+      </div>
+      {/* Basic small container for main app */}
     <div className={styles.container}>
+      {/* Form styling */}
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h1>Habit Creation Screen</h1>
         <input
           type="text"
           placeholder="Your Habit"
-          {...register("habitName", { required: true })} // Registering the input field
+          {...register("habitName", { required: true })} // Registering the input field (capturing value using react-hook-form)
         />
         <button type="submit">Add Habit</button>
+        {/* Component that displays all habits from local storage */}
         <HabitDisplay habits={habits} />
       </form>
+    </div>
     </div>
   );
 };
