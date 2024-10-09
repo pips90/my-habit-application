@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/my-habit-application/static/css/main.1d2324d7.css",
-    "main.js": "/my-habit-application/static/js/main.1f5bf989.js",
+    "main.js": "/my-habit-application/static/js/main.4962898e.js",
     "index.html": "/my-habit-application/index.html",
     "main.1d2324d7.css.map": "/my-habit-application/static/css/main.1d2324d7.css.map",
-    "main.1f5bf989.js.map": "/my-habit-application/static/js/main.1f5bf989.js.map"
+    "main.4962898e.js.map": "/my-habit-application/static/js/main.4962898e.js.map"
   },
   "entrypoints": [
     "static/css/main.1d2324d7.css",
-    "static/js/main.1f5bf989.js"
+    "static/js/main.4962898e.js"
   ]
 }
